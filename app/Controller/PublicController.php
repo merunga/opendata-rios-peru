@@ -14,7 +14,7 @@ class PublicController extends AppController {
 	public function post() {
 		
 		$this->layout = 'layer';	
-		debug($this->Post);
+		debug($this->data);
 		/*if (!empty($this->data)) {
 			$this->Post->create();
 			

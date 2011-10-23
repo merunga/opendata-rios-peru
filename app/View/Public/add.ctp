@@ -67,16 +67,16 @@
                         popup = new OpenLayers.Popup("chicken",
                        new OpenLayers.LonLat(lonlat.lon,lonlat.lat),
                        new OpenLayers.Size(250,160),
-		'<div id="form_data" action="<?= $this->Html->url("/public/post")?>">'+
+		'<form id="form_data" method="post" enctype="multipart/form-data" action="<?= $this->Html->url("/public/post")?>">'+
         '	<label>nombre</label><br/><input type="text" name="nombre"><br />'+
         '	<label>post</label><br/><input type="text" name="post"><br />'+
-        '	<input type="hidden" name="lon" value='+lonlat.lon/1000+'><br />'+
-        '	<input type="hidden" name="lat" value='+lonlat.lat/1000+'><br />'+
+        '	<input type="hidden" name="lon" value='+lonlat.lon/10000+'><br />'+
+        '	<input type="hidden" name="lat" value='+lonlat.lat/10000+'><br />'+
         '	<button name="submit" onclick="xhrSubmit(this.form,success)">submit</button>'+
         '	<img id="invForm-loader" class="hidden loader"'+
         '       src="/odw/img/loader.gif"'+
         '       alt="loading..." title="loading..." />'+
-        '</div>',
+        '</form>',
                        true);
 
     				map.addPopup(popup);
@@ -151,6 +151,12 @@
     	}
 
 	   xhr.send(formdata)
+	 /* $.ajax({
+		  type: 'POST',
+		  url: form.action,
+		  data: $(form).serialize(),
+		  success: cbFunc
+		});*/
 	   $(form).find('.loader').show()
        
    }
