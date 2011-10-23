@@ -117,6 +117,14 @@
 
  
 	    map.setCenter(new OpenLayers.LonLat(-70.8890724, -7.07412398), 5);
+	    function cargarArea(lon,lat){
+		var geojson = new OpenLayers.Layer.GML("GeoJSON",
+			"<?php echo $this->Html->url("/layer/area",true);?>?lon="+lon+"&lat="+lat, {
+			projection: new OpenLayers.Projection("EPSG:4326"),
+			format: OpenLayers.Format.GeoJSON
+		});	
+		return geojson
+	}
 	    
 	    var click = new OpenLayers.Control.Click();
                 map.addControl(click);
