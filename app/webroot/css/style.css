@@ -1,0 +1,28 @@
+html, body, #map_element {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#text {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+	width: 300px;
+	z-index: 20000;
+	background-color: white;
+	padding: 0 0.5em 0.5em 0.5em;
+}
+
+h1 {margin: 20px 0 0 0;padding: 0;color: #09f;font-size: 28px; text-align: center;font-weight: bold;}
+h2 {margin: 25px 0 0 0;padding: 0;font-size: 20px;}
+h3 {margin: 25px 0 0 0;padding: 0;font-size: 16px;}
+p {clear: both;vertical-align: middle;font-size: 13px;margin: 10px 0 0 0;padding: 0;}
+pre { display: block;margin: 0px;padding: 2px 2px 2px 2px; border: 1px solid #888; background: #ccc;}
+code { display: block;margin: 0px;padding: 2px 2px 2px 20px;border: 1px solid #888;background: #fff;}
+.hr { clear: both;margin: 20px 0 20px 0;font-size: 2px;line-height: 2px;background: #ccc;border: 1px solid #888;height: 2px;display: block;}
+table {font-size: 13px;}
+a {color: #069;}
+a:hover{color: #e30;}
+a.code{display: block;float:left;clear:both;padding: 2px 0px;}
+label { cursor: hand; cursor: pointer;}
