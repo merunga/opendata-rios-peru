@@ -15,7 +15,7 @@ class PublicController extends AppController {
 		
 		$this->layout = 'layer';	
 		debug($this->Post);
-		if (!empty($this->data)) {
+		/*if (!empty($this->data)) {
 			$this->Post->create();
 			
 			
@@ -26,7 +26,7 @@ class PublicController extends AppController {
 				$this->Session->setFlash(sprintf(__('The %s could not be saved. Please, try again.', true), 'post'));
 			}
 		}
-		$this->set('prueba','test');
+		$this->set('prueba','test');*/
 	}
 	
 	public function add() {

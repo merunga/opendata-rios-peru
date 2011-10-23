@@ -38,7 +38,7 @@
 		];
 
 	
-OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+			OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
                 defaultHandlerOptions: {
                     'single': true,
                     'double': false,
