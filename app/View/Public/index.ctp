@@ -28,10 +28,11 @@
 			"SAN MARTIN",
 			"TACNA",
 			"TUMBES",
-			"UCAYALI"
+			"UCAYALI",
+			"LORETO"
 		];
 
-	//"LORETO"
+	//
     var map;
     function init() {
         map = new OpenLayers.Map('map_element', {});  
@@ -54,6 +55,9 @@
 		}
 		       
 	    map.setCenter(new OpenLayers.LonLat(-70.8890724, -7.07412398), 5);
+	    
+
+
         
     }
     

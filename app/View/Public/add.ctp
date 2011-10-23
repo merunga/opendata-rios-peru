@@ -32,6 +32,7 @@
 		];
 		
 		var last_popup = null;
+		 var map;
 
 	
 			OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
@@ -67,8 +68,8 @@
 		'<form id="form_data" method="post" enctype="multipart/form-data" action="<?= $this->Html->url("/public/post")?>">'+
         '	<label>nombre</label><br/><input type="text" name="nombre"><br />'+
         '	<label>post</label><br/><input type="text" name="post"><br />'+
-        '	<input type="hidden" name="lon" value='+lonlat.lon/100000+'><br />'+
-        '	<input type="hidden" name="lat" value='+lonlat.lat/100000+'><br />'+
+        '	<input type="hidden" name="lon" value='+lonlat.lon+'><br />'+
+        '	<input type="hidden" name="lat" value='+lonlat.lat+'><br />'+
         '	<button  onclick="xhrSubmit(this.form,null,success)">submit</button>'+
         '	<img id="invForm-loader" class="hidden loader"'+
         '       src="/odw/img/loader.gif"'+
@@ -81,8 +82,9 @@
                 }
 
             });
-            
-    var map;
+
+	var popups = []
+   
     function init() {
         map = new OpenLayers.Map('map_element', {});  
         
@@ -104,33 +106,69 @@
 			map.addLayers([osm_layer, cargarDepartamento('LIMA')]); 
 		//}
 		
+		
+		
 
     
-    /*var markers = new OpenLayers.Layer.Markers( "Markers" );
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
 	map.addLayer(markers);
 	
 	var size = new OpenLayers.Size(21,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
 	var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
-	markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(-70.8890724, -7.07412398),icon));
-	*/
+	<?php
+	$i = 0;
+	foreach($posts as $post) {
+		echo "/*".var_dump($post)."*/";
+		$nombre = $post['Post']['nombre'];
+		$lon = $post['Post']['lon'];
+		$lat = $post['Post']['lat'];
+		$post = $post['Post']['post'];
 
- 
-	    map.setCenter(new OpenLayers.LonLat(-70.8890724, -7.07412398), 5);
-	    function cargarArea(lon,lat){
+	?>
+			/*
+		<?=var_dump($post)?>
+		 */
+	
+	
+	marker = new OpenLayers.Marker(new OpenLayers.LonLat(<?=$lon?>, <?=$lat?>),icon.clone())
+	marker.events.register('mouseover', marker, function(evt) {
+	   	popup = new OpenLayers.Popup("marker<?=$i?>",
+                       new OpenLayers.LonLat(<?=$lon?>,<?=$lat?>),
+                       new OpenLayers.Size(150,150),
+						'<div><?=$post?> - <?=$nombre?></div>',
+                       true)
+       map.addPopup(popup);
+       popups[marker] = popup;
+	});
+	marker.events.register('mouseout', marker, function(evt) {
+       popups[marker].destroy();
+	});
+		markers.addMarker(marker);
+		
+	<?php
+	$i++;
+	} ?>
+	
+	    var click = new OpenLayers.Control.Click();
+	    
+    map.addControl(click);
+    click.activate();
+        map.setCenter(new OpenLayers.LonLat(-70.8890724, -7.07412398), 5);
+	}
+
+	    
+
+    
+    
+   function cargarArea(lon,lat){
 		var geojson = new OpenLayers.Layer.GML("GeoJSON",
 			"<?php echo $this->Html->url("/layer/area",true);?>?lon="+lon+"&lat="+lat, {
 			projection: new OpenLayers.Projection("EPSG:4326"),
 			format: OpenLayers.Format.GeoJSON
 		});	
 		return geojson
-	}
-	    
-	    var click = new OpenLayers.Control.Click();
-                map.addControl(click);
-                click.activate();
-        
-    }
+}
     
     function cargarDepartamento(departamento){
 		var geojson = new OpenLayers.Layer.GML("GeoJSON", "<?php echo $this->Html->url("/layer/rios",true);?>?departamento="+departamento, {

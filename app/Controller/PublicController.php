@@ -13,21 +13,26 @@ class PublicController extends AppController {
 	
 	public function post() {
 		//Configure::write('debug', 0);		
-		$this->layout = 'layer';	
+		$this->layout = 'layer';
+		
 		//debug($this->data);
 		if (!empty($this->data)) {
 			$this->Post->schema();			
-			
-			if ($this->Post->save($this->data)) {
-				//$this->Session->setFlash(sprintf(__('The %s has been saved', true), 'block'));
-				$this->set('message','Todo OK');
-				//$this->redirect(array('action' => 'index'));
-			} else {
-				//$this->Session->setFlash(sprintf(__('The %s could not be saved. Please, try again.', true), 'post'));
+			try {
+				if ($this->Post->save($this->data)) {
+					//$this->Session->setFlash(sprintf(__('The %s has been saved', true), 'block'));
+					$this->set('message','Todo OK');
+					//$this->redirect(array('action' => 'index'));
+				} else {
+					//$this->Session->setFlash(sprintf(__('The %s could not be saved. Please, try again.', true), 'post'));
+					$this->set('message','Error');
+				}
+			}catch(Exception $e) {
 				$this->set('message','Error');
 			}
 			$this->set('message','Todo OK');
 			$this->render('add');
+			
 		}
 		
 		
@@ -35,6 +40,12 @@ class PublicController extends AppController {
 	
 	public function add() {
 		$this->layout = 'watersearch';
+		$posts_aux = $this->Post->find('all');
+		$arr = array();
+		foreach ($posts_aux as $p){				
+			$arr[] = $p;
+		}
+		$this->set('posts',$arr);
 	}
 
 }
