@@ -30,6 +30,8 @@
 			"TUMBES",
 			"UCAYALI"
 		];
+		
+		var last_popup = null;
 
 	
 			OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
@@ -58,6 +60,7 @@
                 trigger: function(e) {
                     var lonlat = map.getLonLatFromViewPortPx(e.xy);
                     //alert(lonlat.lon)
+                    	if(last_popup) last_popup.destroy()
                         popup = new OpenLayers.Popup("chicken",
                        new OpenLayers.LonLat(lonlat.lon,lonlat.lat),
                        new OpenLayers.Size(250,160),
@@ -74,6 +77,7 @@
                        true);
 
     				map.addPopup(popup);
+    				last_popup = popup
                 }
 
             });
