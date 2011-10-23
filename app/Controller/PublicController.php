@@ -17,7 +17,7 @@ class PublicController extends AppController {
 		//debug($this->data);
 		if (!empty($this->data)) {
 			$this->Post->schema();			
-			/*
+			
 			if ($this->Post->save($this->data)) {
 				//$this->Session->setFlash(sprintf(__('The %s has been saved', true), 'block'));
 				$this->set('message','Todo OK');
@@ -25,7 +25,7 @@ class PublicController extends AppController {
 			} else {
 				//$this->Session->setFlash(sprintf(__('The %s could not be saved. Please, try again.', true), 'post'));
 				$this->set('message','Error');
-			}*/
+			}
 			$this->set('message','Todo OK');
 			$this->render('add');
 		}

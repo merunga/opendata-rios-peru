@@ -67,8 +67,8 @@
 		'<form id="form_data" method="post" enctype="multipart/form-data" action="<?= $this->Html->url("/public/post")?>">'+
         '	<label>nombre</label><br/><input type="text" name="nombre"><br />'+
         '	<label>post</label><br/><input type="text" name="post"><br />'+
-        '	<input type="hidden" name="lon" value='+lonlat.lon/10000+'><br />'+
-        '	<input type="hidden" name="lat" value='+lonlat.lat/10000+'><br />'+
+        '	<input type="hidden" name="lon" value='+lonlat.lon/100000+'><br />'+
+        '	<input type="hidden" name="lat" value='+lonlat.lat/100000+'><br />'+
         '	<button  onclick="xhrSubmit(this.form,null,success)">submit</button>'+
         '	<img id="invForm-loader" class="hidden loader"'+
         '       src="/odw/img/loader.gif"'+

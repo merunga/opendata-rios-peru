@@ -36,7 +36,7 @@ class LayerController extends AppController {
 		if(array_key_exists('lon',$this->params['url']) ){
 			$lon = $this->params['url']['lon'];
 			$lat = $this->params['url']['lat'];
-			$gises = $this->Point->getDataSource()->execute('db.pointIndex.find({\'value.coordinate\':{$near : ['.$lon.','.$lat.']}},{\'value.id\':2,\'_id\':0});' );
+			$gises = $this->Point->getDataSource()->execute('db.pointIndex.find({\'value.coordinate\':{$near : ['.$lon.','.$lat.']}},{\'value.id\':1,\'_id\':0}).forEach(printjson);' );
 			
 			//debug($arr);
 			$refs = array();

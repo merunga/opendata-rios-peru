@@ -3,12 +3,6 @@
 <head>
     <meta charset='utf-8'/>
     <title>OpenData WaterBody</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/jquery.checkbox.css" />
-    <script type='text/javascript' src='js/jquery-1.6.4.min.js'></script>  
-    <script type='text/javascript' src='js/jquery.checkbox.js'></script>  
-    <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjpkAC9ePGem0lIq5XcMiuhR_wWLPFku8Ix9i2SXYRVK3e45q1BQUd_beF8dtzKET_EteAjPdGDwqpQ'></script>
-    <script type='text/javascript' src='js/openlayer/OpenLayers.js'></script>
     
     <script type='text/javascript'>
 		var departamentitos = ["AMAZONAS",
@@ -44,7 +38,7 @@
         
              
         var osm_layer = new OpenLayers.Layer.Google("Google Physical",
-                {type: G_PHYSICAL_MAP}
+                {type: google.maps.MapTypeId.TERRAIN}
         );	
         
         /*
@@ -78,7 +72,7 @@
 <body onload="init()">
         <div id="map_element"></div>
 
-          <div id="text">
+          <!--div id="text">
               <h1 id="title">Por Departamentos</h1>
 
               <div id="tags">
@@ -88,6 +82,6 @@
 			<h2>Examples:</h2>
 		
             
-        </div>
+        </div-->
     </body>
 </html>
