@@ -69,7 +69,7 @@
         '	<label>post</label><br/><input type="text" name="post"><br />'+
         '	<input type="hidden" name="lon" value='+lonlat.lon/10000+'><br />'+
         '	<input type="hidden" name="lat" value='+lonlat.lat/10000+'><br />'+
-        '	<button name="submit" onclick="xhrSubmit(this.form,success)">submit</button>'+
+        '	<button  onclick="xhrSubmit(this.form,null,success)">submit</button>'+
         '	<img id="invForm-loader" class="hidden loader"'+
         '       src="/odw/img/loader.gif"'+
         '       alt="loading..." title="loading..." />'+
@@ -141,6 +141,18 @@
 	}
 	
 	var xhrSubmit = function(form,append,cbFunc) {
+		
+		 $.ajax({
+			global: false,
+			type: "POST",
+			url: "<?= $this->Html->url("/public/post")?>",
+			dataType: 'html',
+			data: {'data[nombre]' : 'sdsdas','data[post]' : 'asaaaaa','data[lon]' : '324234','data[lat]' : '324324'},
+			success: function(data){
+					alert(data);
+				}
+			});
+		/*
 	   var formdata = new FormData(form);
        for(name in append) {
     	   formdata.append(name,append[name])
@@ -152,23 +164,23 @@
        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
        xhr.onreadystatechange = function() {
     	   if (xhr.readyState == 4) {
+			   
               cbFunc(form,xhr.responseText);
     	   }
     	}
-
-	   xhr.send(formdata)
+	xhr.send(formdata)
 	 /* $.ajax({
 		  type: 'POST',
 		  url: form.action,
 		  data: $(form).serialize(),
 		  success: cbFunc
 		});*/
-	   $(form).find('.loader').show()
+	   //$(form).find('.loader').show()
        
    }
    
    var success = function(form,resp) {
-   		alert(resp)
+   		//alert(resp)
    		$(form).find('.loader').hide()
    }
 	    
