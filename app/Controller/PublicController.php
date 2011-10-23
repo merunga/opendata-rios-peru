@@ -11,6 +11,10 @@ class PublicController extends AppController {
 	public function index() {
 		
 	}
+	
+	public function add() {
+	
+	}
 
 }
 ?>
