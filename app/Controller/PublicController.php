@@ -28,6 +28,10 @@ class PublicController extends AppController {
 		}
 		$this->set('prueba','test');
 	}
+	
+	public function add() {
+	
+	}
 
 }
 ?>
