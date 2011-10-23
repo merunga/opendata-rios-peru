@@ -30,7 +30,7 @@ class PublicController extends AppController {
 	}
 	
 	public function add() {
-	
+		$this->layout = 'watersearch';
 	}
 
 }

@@ -3,12 +3,6 @@
 <head>
     <meta charset='utf-8'/>
     <title>OpenData WaterBody</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/jquery.checkbox.css" />
-    <script type='text/javascript' src='../js/jquery-1.6.4.min.js'></script>  
-    <script type='text/javascript' src='../js/jquery.checkbox.js'></script>  
-    <script src='http://maps.googleapis.com/maps/api/js?sensor=false'></script>
-    <script type='text/javascript' src='../js/openlayer/OpenLayers.js'></script>
     
     <script type='text/javascript'>
 		var departamentitos = ["AMAZONAS",
