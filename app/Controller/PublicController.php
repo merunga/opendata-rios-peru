@@ -2,7 +2,7 @@
 class PublicController extends AppController {
 	var $name = 'Public';
 	var $components = array('RequestHandler'); 
-	var $uses = array('Post','Gis');
+	var $uses = array('Post','Gis','Point');
 	var $helpers = array('Html', 'Form');
 	var $layout = 'waterbody';
 	
@@ -12,24 +12,30 @@ class PublicController extends AppController {
 	}
 	
 	public function post() {
-		//Configure::write('debug', 0);		
+		//error_reporting(E_ERROR);
+		Configure::write('debug', 0);		
+
 		$this->layout = 'layer';
-		
-		//debug($this->data);
+		$this->Point->useTable = 'pointIndex';
+		$this->Point->table = 'pointIndex';
+
 		if (!empty($this->data)) {
 			$this->Post->schema();			
-			try {
-				if ($this->Post->save($this->data)) {
-					//$this->Session->setFlash(sprintf(__('The %s has been saved', true), 'block'));
-					$this->set('message','Todo OK');
-					//$this->redirect(array('action' => 'index'));
-				} else {
-					//$this->Session->setFlash(sprintf(__('The %s could not be saved. Please, try again.', true), 'post'));
-					$this->set('message','Error');
-				}
-			}catch(Exception $e) {
+
+			$nombre = $this->data['nombre'];
+			$post = $this->data['post'];
+			$lon = $this->data['lon'];
+			$lat = $this->data['lat'];
+			$query = "db.posts.insert({'nombre':'$nombre', 'post':'$post','lon':'$lon','lat':'$lat'})";
+			if ($this->Point->getDataSource()->execute($query)) {
+				//$this->Session->setFlash(sprintf(__('The %s has been saved', true), 'block'));
+				$this->set('message','Todo OK');
+				//$this->redirect(array('action' => 'index'));
+			} else {
+				//$this->Session->setFlash(sprintf(__('The %s could not be saved. Please, try again.', true), 'post'));
 				$this->set('message','Error');
 			}
+
 			$this->set('message','Todo OK');
 			$this->render('add');
 			

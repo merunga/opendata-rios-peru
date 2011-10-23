@@ -27,6 +27,7 @@ class LayerController extends AppController {
 	}
 	
 	
+	
 	public function area() {
 		$this->layout = 'default';
 		$this->Point->useTable = 'pointIndex';

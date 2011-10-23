@@ -5,8 +5,9 @@ class Post extends AppModel {
 	var $useDbConfig = 'mongo';
 
 	function schema() {
+		error_reporting(E_ERROR);
 		$this->_schema = array(
-			'_id' => array('type' => 'integer', 'primary' => true, 'length' => 40),
+			'_id' => array('primary' => true),
 			'nombre' => array('type' => 'string'),
 			'post' => array('type' => 'text'),
 			'lon' => array('type' => 'real'),

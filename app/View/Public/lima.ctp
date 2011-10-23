@@ -135,8 +135,8 @@
 	marker.events.register('mouseover', marker, function(evt) {
 	   	popup = new OpenLayers.Popup("marker<?=$i?>",
                        new OpenLayers.LonLat(<?=$lon?>,<?=$lat?>),
-                       new OpenLayers.Size(150,50),
-						'<div><?=$post?> <p><small><?=$nombre?></small></p></div>',
+                       new OpenLayers.Size(150,150),
+						'<div><?=$post?> - <?=$nombre?></div>',
                        true)
        map.addPopup(popup);
        popups[marker] = popup;
@@ -223,7 +223,7 @@
 }
 </style>
 
-<body onload="init()" style="font-family: Arial, Helvetica, sans-serif">
+<body onload="init()">
         <div id="map_element"></div>
         <!--div id="form_data" action="<?= $this->Html->url("/public/post")?>">
         	<label>nombre</label> <input type="text" name="nombre"><br />
