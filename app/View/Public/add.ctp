@@ -63,13 +63,13 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
                 trigger: function(e) {
                     var lonlat = map.getLonLatFromViewPortPx(e.xy);
-                    alert(lonlat.lon)
+                    //alert(lonlat.lon)
                         popup = new OpenLayers.Popup("chicken",
                        new OpenLayers.LonLat(lonlat.lon,lonlat.lat),
-                       new OpenLayers.Size(200,200),
+                       new OpenLayers.Size(250,160),
 		'<div id="form_data" action="<?= $this->Html->url("/public/post")?>">'+
-        '	<label>nombre</label> <input type="text" name="nombre"><br />'+
-        '	<label>post</label> <input type="text" name="post"><br />'+
+        '	<label>nombre</label><br/><input type="text" name="nombre"><br />'+
+        '	<label>post</label><br/><input type="text" name="post"><br />'+
         '	<input type="hidden" name="lon" value='+lonlat.lon/1000+'><br />'+
         '	<input type="hidden" name="lat" value='+lonlat.lat/1000+'><br />'+
         '	<button name="submit" onclick="xhrSubmit(this.form,success)">submit</button>'+
@@ -127,7 +127,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
     }
     
     function cargarDepartamento(departamento){
-		var geojson = new OpenLayers.Layer.GML("GeoJSON", "/odw/layer?departamento="+departamento, {
+		var geojson = new OpenLayers.Layer.GML("GeoJSON", "<?php echo $this->Html->url("/layer/obtenerRios",true);?>?departamento="+departamento, {
 			projection: new OpenLayers.Projection("EPSG:4326"),
 			format: OpenLayers.Format.GeoJSON
 		});	
