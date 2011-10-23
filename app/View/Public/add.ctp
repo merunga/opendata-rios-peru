@@ -127,7 +127,7 @@
     }
     
     function cargarDepartamento(departamento){
-		var geojson = new OpenLayers.Layer.GML("GeoJSON", "<?php echo $this->Html->url("/layer/obtenerRios",true);?>?departamento="+departamento, {
+		var geojson = new OpenLayers.Layer.GML("GeoJSON", "<?php echo $this->Html->url("/layer/rios",true);?>?departamento="+departamento, {
 			projection: new OpenLayers.Projection("EPSG:4326"),
 			format: OpenLayers.Format.GeoJSON
 		});	
