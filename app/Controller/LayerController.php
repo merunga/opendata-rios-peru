@@ -7,7 +7,7 @@ class LayerController extends AppController {
 	var $layout = 'html';
 	
 	public function index() {
-		//Configure::write('debug', 0);		
+		Configure::write('debug', 0);		
 		$pruebas = $this->Gis->find('all',array('conditions'=>array('properties.DN99'=>$this->params['url']['departamento'])));
 		
 		$arr = array('type'=>'FeatureCollection','features'=>array());
@@ -22,6 +22,7 @@ class LayerController extends AppController {
 		$this->set('layerResult',json_encode($arr));
 		
 	}
+	
 
 }
 ?>
