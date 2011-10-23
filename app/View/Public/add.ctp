@@ -37,7 +37,53 @@
 			"UCAYALI"
 		];
 
-	//"LORETO"
+	
+OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {                
+                defaultHandlerOptions: {
+                    'single': true,
+                    'double': false,
+                    'pixelTolerance': 0,
+                    'stopSingle': false,
+                    'stopDouble': false
+                },
+
+                initialize: function(options) {
+                    this.handlerOptions = OpenLayers.Util.extend(
+                        {}, this.defaultHandlerOptions
+                    );
+                    OpenLayers.Control.prototype.initialize.apply(
+                        this, arguments
+                    ); 
+                    this.handler = new OpenLayers.Handler.Click(
+                        this, {
+                            'click': this.trigger
+                        }, this.handlerOptions
+                    );
+                }, 
+
+                trigger: function(e) {
+                    var lonlat = map.getLonLatFromViewPortPx(e.xy);
+                    alert(lonlat.lon)
+                        popup = new OpenLayers.Popup("chicken",
+                       new OpenLayers.LonLat(lonlat.lon,lonlat.lat),
+                       new OpenLayers.Size(200,200),
+		'<div id="form_data" action="<?= $this->Html->url("/public/post")?>">'+
+        '	<label>nombre</label> <input type="text" name="nombre"><br />'+
+        '	<label>post</label> <input type="text" name="post"><br />'+
+        '	<input type="hidden" name="lon" value='+lonlat.lon/1000+'><br />'+
+        '	<input type="hidden" name="lat" value='+lonlat.lat/1000+'><br />'+
+        '	<button name="submit" onclick="xhrSubmit(this.form,success)">submit</button>'+
+        '	<img id="invForm-loader" class="hidden loader"'+
+        '       src="/odw/img/loader.gif"'+
+        '       alt="loading..." title="loading..." />'+
+        '</div>',
+                       true);
+
+    				map.addPopup(popup);
+                }
+
+            });
+            
     var map;
     function init() {
         map = new OpenLayers.Map('map_element', {});  
@@ -59,8 +105,24 @@
 			//var geojsondep = cargarDepartamento(departamentitos[depart]);
 			map.addLayers([osm_layer, cargarDepartamento('LIMA')]); 
 		//}
-		       
+		
+
+    
+    /*var markers = new OpenLayers.Layer.Markers( "Markers" );
+	map.addLayer(markers);
+	
+	var size = new OpenLayers.Size(21,25);
+	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+	var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png', size, offset);
+	markers.addMarker(new OpenLayers.Marker(new OpenLayers.LonLat(-70.8890724, -7.07412398),icon));
+	*/
+
+ 
 	    map.setCenter(new OpenLayers.LonLat(-70.8890724, -7.07412398), 5);
+	    
+	    var click = new OpenLayers.Control.Click();
+                map.addControl(click);
+                click.activate();
         
     }
     
@@ -72,54 +134,55 @@
 		return geojson
 	}
 	
-	var myLatlng = new google.maps.LatLng(-70.8890724, -7.07412398);
-var myOptions = {
-  zoom: 5,
-  center: myLatlng,
-  mapTypeId: google.maps.MapTypeId.ROADMAP
-}
+	var xhrSubmit = function(form,append,cbFunc) {
+	   var formdata = new FormData(form);
+       for(name in append) {
+    	   formdata.append(name,append[name])
+       }
+	   var xhr = new XMLHttpRequest();
+       method = form.method
+       action = form.action
+	   xhr.open(method,action);  
+       xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+       xhr.onreadystatechange = function() {
+    	   if (xhr.readyState == 4) {
+              cbFunc(form,xhr.responseText);
+    	   }
+    	}
 
+	   xhr.send(formdata)
+	   $(form).find('.loader').show()
+       
+   }
+   
+   var success = function(form,resp) {
+   		alert(resp)
+   		$(form).find('.loader').hide()
+   }
+	    
 
-
-var contentString = '<div id="content">'+
-    '<div id="siteNotice">'+
-    '</div>'+
-    '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-    '<div id="bodyContent">'+
-    '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-    'sandstone rock formation in the southern part of the '+
-    'Northern Territory, central Australia. It lies 335 km (208 mi) '+
-    'south west of the nearest large town, Alice Springs; 450 km '+
-    '(280 mi) by road. Kata Tjuta and Uluru are the two major '+
-    'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-    'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-    'Aboriginal people of the area. It has many springs, waterholes, '+
-    'rock caves and ancient paintings. Uluru is listed as a World '+
-    'Heritage Site.</p>'+
-    '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-    'http://en.wikipedia.org/w/index.php?title=Uluru</a> (last visited June 22, 2009).</p>'+
-    '</div>'+
-    '</div>';
-
-var infowindow = new google.maps.InfoWindow({
-    content: contentString
-});
-
-var marker = new google.maps.Marker({
-    position: myLatlng,
-    map: map,
-    title:"Uluru (Ayers Rock)"
-});
-
-google.maps.event.addListener(marker, 'click', function() {
-  infowindow.open(map,marker);
-});
 
     </script>   
         
 </head>
 
+<style type="text/css">
+.hidden {
+  display: none;
+}
+</style>
+
 <body onload="init()">
         <div id="map_element"></div>
+        <!--div id="form_data" action="<?= $this->Html->url("/public/post")?>">
+        	<label>nombre</label> <input type="text" name="nombre"><br />
+        	<label>post</label> <input type="text" name="post"><br />
+        	<input type="hidden" name="lon"><br />
+        	<input type="hidden" name="lat"><br />
+        	<button name="submit" onclick="xhrSubmit(this.form,success)">submit</button>
+        	<img id="invForm-loader" class="hidden loader"
+               src="/odw/img/loader.gif"
+               alt="loading..." title="loading..." />
+        </div-->
     </body>
 </html>
