@@ -6,7 +6,7 @@ class LayerController extends AppController {
 	var $helpers = array('Html', 'Form','Js');
 	var $layout = 'html';
 	
-	public function obtenerRios() {
+	public function rios() {
 		//Configure::write('debug', 0);		
 		//debug($this->params['url']['departamento']);
 		if(array_key_exists('departamento',$this->params['url']) ){
@@ -27,7 +27,7 @@ class LayerController extends AppController {
 	}
 	
 	
-	public function layerArea() {
+	public function area() {
 		//Configure::write('debug', 0);		
 		//debug($this->params['url']['departamento']);
 		if(array_key_exists('departamento',$this->params['url']) ){
