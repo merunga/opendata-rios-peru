@@ -8,7 +8,7 @@ class PublicController extends AppController {
 	
 	var $useTable = false;
 	
-	public function index() {		
+	public function all() {		
 	}
 	
 	public function post() {
@@ -44,7 +44,7 @@ class PublicController extends AppController {
 		
 	}
 	
-	public function add() {
+	public function index() {
 		$this->layout = 'watersearch';
 		$posts_aux = $this->Post->find('all');
 		$arr = array();
